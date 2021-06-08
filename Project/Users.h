@@ -12,7 +12,8 @@ public:
 	string login, password;
 	int accessLevel;
 public:
-	bool LogIn(vector <UserData> userInformation);
+	User();
+	int LogIn(vector <UserData> userInformation);
 	UserData OrderNetworkConnection(vector <UserData> userInformation, vector <string> tariffPlan);
 };
 
@@ -20,29 +21,29 @@ class Client {
 protected:
 	double balance;
 	string tariff;
-	int accessLevel;
+	int accessLevel, id;
 public:
-	friend void LogOut();
+	Client(int _id, vector <UserData> userInformation);
 	void ViewBalanceAndTariff();
-	void ChangeTariff();
-	void OrderNetworkDisconnection();
-	void MakeMalfunctionRequest();
+	RequestDetails ChangeTariff();
+	int OrderNetworkDisconnection();
+	RequestDetails MakeMalfunctionRequest();
 };
 
 class Engineer {
 protected:
-	int accessLevel;
+	int accessLevel, id;;
 public:
-	friend void LogOut();
+	Engineer();
 	friend void AcceptRequest();
 };
 
 
 class Administrator {
 protected:
-	int accessLevel;
+	int accessLevel, id;;
 public:
-	friend void LogOut();
+	Administrator();
 	void BlockingClientAccess();
 	void RemoveBlockingClientAccess();
 	void ShowDatabase(Database information);
@@ -51,7 +52,7 @@ public:
 
 class Management {
 protected:
-	int accessLevel;
+	int accessLevel, id;;
 public:
-	friend void LogOut();
+	Management();
 };

@@ -1,6 +1,12 @@
 #include "Users.h"
 
-bool User::LogIn(vector <UserData> userInformation) {
+User::User() {
+	login.clear();
+	password.clear();
+	accessLevel = 0;
+}
+
+int User::LogIn(vector <UserData> userInformation) {
 	cout << "Enter login:";
 	cin >> login;
 	cout << "Enter password:";
@@ -8,10 +14,10 @@ bool User::LogIn(vector <UserData> userInformation) {
 
 	for (UserData info : userInformation) {
 		if (!info.login.compare(login) && !info.password.compare(password)) {
-			return true;
+			return info.id;
 		}
 	}
-	return false;
+	return -1;
 }
 #include "Users.h"
 
@@ -42,6 +48,8 @@ UserData User::OrderNetworkConnection(vector <UserData> userInformation, vector 
 	cout << "Enter password: ";
 	getline(cin, newUser.password);
 
+	newUser.state = "User";
+
 	cout << "How much money do you want to deposit: ";
 	cin >> newUser.balance;
 
@@ -60,5 +68,89 @@ UserData User::OrderNetworkConnection(vector <UserData> userInformation, vector 
 		}
 	}
 
+	bool flag;
+	for (int i = 0; i <= userInformation.size(); i++) {
+		flag = true;
+		for (UserData info : userInformation) {
+			if (info.id == i) {
+				flag = false;
+				break;
+			}
+		}
+		if (flag) {
+			newUser.id = i;
+			break;
+		}
+	}
+
 	return newUser;
+}
+
+Client::Client(int _id, vector <UserData> userInformation) {
+	id = _id;
+	for (UserData info : userInformation) {
+		if (info.id == id) {
+			balance = info.balance;
+			tariff = info.tariff;
+		}
+	}
+	accessLevel = 1;
+}
+
+void Client::ViewBalanceAndTariff() {
+	cout << "Your balance: " << balance << endl;
+	cout << "Your tariff: " << tariff << endl;
+	_getch();
+}
+
+RequestDetails Client::ChangeTariff() {
+	RequestDetails request;
+
+	cout << "Enter your name: ";
+	cin >> request.name;
+	request.id = id;
+	cout << "Enter your address: ";
+	cin >> request.address;
+	cout << "Enter your new tariff: ";
+	cin >> request.problem;
+	request.type = 2;
+
+	return request;
+}
+
+int Client::OrderNetworkDisconnection() {
+	cout << "Are you sure?\n";
+	cout << "1 - Yes\n";
+	cout << "2 - No\n";
+	
+	int choice;
+	while (true)
+	{
+		cin >> choice;
+
+		if (choice == 1) {
+			return id;
+		}
+		else if (choice == 2) {
+			return -1;
+		}
+		else {
+			cout << "Enter only 1 or 2\n";
+		}
+	}
+}
+
+RequestDetails Client::MakeMalfunctionRequest() {
+	RequestDetails request;
+
+	cout << "Enter your name: ";
+	cin >> request.name;
+	request.id = id;
+	cout << "Enter your address: ";
+	cin >> request.address;
+	cout << "Enter your new tariff: ";
+	cin >> request.problem;
+	request.type = 3;
+
+	return request;
 }
