@@ -10,15 +10,20 @@ struct UserData {
 	string name,
 		address,
 		login,
-		password;
+		password,
+		status;
 	double balance;
-	int tariff;
+	int tariff, 
+		state,
+		id;
 };
 
 struct RequestDetails {
 	string name,
 		address,
 		problem;
+	int state,
+		id;
 };
 
 class Database {
@@ -26,7 +31,6 @@ protected:
 	vector <RequestDetails> allRequests;
 	vector <UserData> userInformation;
 	vector <string> tariffPlan;
-	int income, expenses;
 public:
 	Database();
 

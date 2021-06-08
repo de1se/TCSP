@@ -10,7 +10,7 @@ using namespace std;
 class User {
 public:
 	string login, password;
-	int accessLevel;
+	int state;
 public:
 	User();
 	int LogIn(vector <UserData> userInformation);
@@ -20,8 +20,8 @@ public:
 class Client {
 protected:
 	double balance;
-	string tariff;
-	int accessLevel, id;
+	string tariff, status;
+	int state, id;
 public:
 	Client(int _id, vector <UserData> userInformation);
 	void ViewBalanceAndTariff();
@@ -32,27 +32,28 @@ public:
 
 class Engineer {
 protected:
-	int accessLevel, id;;
+	int state, id;;
 public:
-	Engineer();
-	friend void AcceptRequest();
+	Engineer(int _id);
+	void AcceptRequest(vector <RequestDetails> allRequests);
 };
 
 
 class Administrator {
 protected:
-	int accessLevel, id;;
+	int state, id;
 public:
-	Administrator();
-	void BlockingClientAccess();
-	void RemoveBlockingClientAccess();
-	void ShowDatabase(Database information);
-	friend void AcceptRequest();
+	Administrator(int _id);
+	void BlockingClientAccess(vector <UserData> userInformation);
+	void RemoveBlockingClientAccess(vector <UserData> userInformation);
+	void ShowDatabase(vector <UserData> userInformation);
+	void AcceptRequest(vector <string> tariffPlan, vector <RequestDetails> allRequests, vector <UserData> userInformation);
 };
 
 class Management {
 protected:
-	int accessLevel, id;;
+	int state, id;;
 public:
-	Management();
+	Management(int _id);
+	void ShowDatabase(vector <UserData> userInformation);
 };
