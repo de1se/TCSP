@@ -19,15 +19,16 @@ public:
 
 class Client {
 protected:
-	double balance;
 	string tariff, status;
-	int state, id;
+	int balance, state, id;
 public:
 	Client(int _id, vector <UserData> userInformation);
 	void ViewBalanceAndTariff();
 	RequestDetails ChangeTariff();
+	int DepositMoney();
 	int OrderNetworkDisconnection();
 	RequestDetails MakeMalfunctionRequest();
+	int GetID();
 };
 
 class Engineer {

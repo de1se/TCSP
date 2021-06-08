@@ -1,8 +1,11 @@
 #pragma once
 
 #include <iostream>
+#include <conio.h>
+#include <fstream>
 #include <string>
 #include <vector>
+
 
 using namespace std;
 
@@ -12,8 +15,8 @@ struct UserData {
 		login,
 		password,
 		status;
-	double balance;
-	int tariff, 
+	int balance,
+		tariff, 
 		state,
 		id;
 };
@@ -34,14 +37,14 @@ protected:
 public:
 	Database();
 
-	void AddUserInformation(UserData _userInformation);
-	void showAllRequests();
-	void ShowUserInformation();
-	void ShowTariffPlan();
-	void DeleteRequest(int id);
+	void AddUserInformation(UserData info);
+	void AddRequest(RequestDetails request);
+	void WriteToFile();
+	void ReadFromFile();
+	void AddBalance(int id, int balance);
 	void DeleteUser(int id);
-	
-	vector <RequestDetails> GetRequests(string AccessLevel);
+
+	vector <RequestDetails> GetRequests();
 	vector <UserData> GetUserInformation();
 	vector <string> GetTariffPlan();
 };

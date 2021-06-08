@@ -22,6 +22,7 @@ int User::LogIn(vector <UserData> userInformation) {
 
 	cout << "Wrong login or password. Or your account has been deactivated.\n";
 	_getch();
+
 	return -1;
 }
 
@@ -130,28 +131,18 @@ RequestDetails Client::ChangeTariff() {
 	return request;
 }
 
+int Client::DepositMoney() {
+	int deposit;
+	cout << "How much you want to depost?\n";
+	cin >> deposit;
+
+	balance += deposit;
+
+	return balance;
+}
+
 int Client::OrderNetworkDisconnection() {
-	system("cls");
-
-	cout << "Are you sure?\n";
-	cout << "1 - Yes\n";
-	cout << "2 - No\n";
-	
-	int choice;
-	while (true)
-	{
-		cin >> choice;
-
-		if (choice == 1) {
-			return id;
-		}
-		else if (choice == 2) {
-			return -1;
-		}
-		else {
-			cout << "Enter only 1 or 2\n";
-		}
-	}
+	return id;
 }
 
 RequestDetails Client::MakeMalfunctionRequest() {
@@ -169,6 +160,10 @@ RequestDetails Client::MakeMalfunctionRequest() {
 	request.state = 3;
 
 	return request;
+}
+
+int Client::GetID() {
+	return id;
 }
 
 Engineer::Engineer(int _id) {
